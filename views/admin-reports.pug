@@ -1,0 +1,71 @@
+extends layout
+block content
+  .container-fluid.py-4
+    .d-flex.justify-content-between.align-items-center.mb-4
+      div
+        h1.mb-2 System Admin Reports
+    // Key Metrics
+    .row.g-4.mb-4
+      .col-md-3
+        .card.stat-card(style='background: linear-gradient(135deg, #00327d, #002255);')
+          h6 Total Revenue
+          p UGX #{totalRevenue.toLocaleString()}
+      .col-md-3
+        .card.stat-card
+          h6 Total Vehicles
+          p #{totalVehicles}
+      .col-md-3
+        .card.stat-card
+          h6 Signed Out
+          p #{signedOutCount}
+      .col-md-3
+        .card.stat-card
+          h6 Services Today
+          p #{todayServices}
+    // Audit Log Table
+    .card.mb-4
+      .card-header.bg-light
+        .d-flex.justify-content-between.align-items-center
+          h5.mb-0 System Audit Log
+          span.badge.bg-secondary Monitoring
+      .table-responsive
+        table.table.mb-0#auditLog
+          thead
+            tr
+              th Time
+              th Action
+              th User
+              th Resource
+              th Status
+          tbody
+            if recentPayments && recentPayments.length > 0
+              each payment in recentPayments
+                tr
+                  td #{new Date(payment.paymentDate).toLocaleString()}
+                  td Payment Received
+                  td System
+                  td #{payment.plateNumber}
+                  td
+                    span.badge.bg-success Completed
+            else
+              tr
+                td(colspan='5').text-center.text-muted No audit entries yet
+    // Quick Stats
+    .row.g-4
+      .col-md-6
+        .card.text-center
+          .card-body
+            h5.card-title Parked Vehicles Now
+            p.display-2.fw-bold.text-primary#currentParked #{parkedCount}
+            small.text-muted Currently occupying spaces
+      .col-md-6
+        .card.text-center
+          .card-body
+            h5.card-title Most Popular Service
+            p.display-4.fw-bold.text-success#popularService #{popularService}
+            small.text-muted Highest demand today
+  script.
+    function filterReports(period) {
+      alert(' Filtering reports for: ' + period);
+    }
+  script(src='/js/admin-reports.js')

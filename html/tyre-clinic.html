@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tyre Clinic </title>
+    
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="../public/css/style.css">
+    <!-- <link rel="stylesheet" href="./public/css/tyre-clinic.css"> -->
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <h1 style="color: #00327d; text-align: center; margin-bottom: 40px;">ParkEase</h1>
+        
+        <a href="attendant-dashboard.html" class="nav-link"> Dashboard</a>
+        <a href="vehicle-registration.html" class="nav-link"> Register Vehicle</a>
+        <a href="sign-out.html" class="nav-link"> Sign Out</a>
+        <a href="battery-section.html" class="nav-link"> Battery</a>
+        <a href="reports.html" class="nav-link"> Reports</a>
+    </aside>
+
+    <!-- Main Content -->
+    <main style="margin-left: 280px; padding-top: 80px;">
+        <div class="container">
+
+            <h1>Tyre Clinic Service</h1>
+            <p class="subtitle">Record tyre services and calculate fees instantly.</p>
+
+            <!-- Service Form -->
+            <div class="service-card">
+                <form action="/tyre-service" method="POST">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="vehiclePlate">Vehicle Number Plate</label>
+                            <input type="text" id="vehiclePlate" name="plateNumber" placeholder="e.g. UBA123" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="serviceType">Service Type</label>
+                            <select id="serviceType" name="serviceType" required>
+c                                <option value="">-- Select Service --</option>
+                                <option value="Pressure Check">Pressure Check (UGX 500)</option>
+                                <option value="Puncture Fix">Puncture Fixing (UGX 5,000)</option>
+                                <option value="Valve Replacement">Valve Replacement (UGX 5,000)</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="tyreSize">Tyre Size (Optional)</label>
+                            <input type="text" id="tyreSize" placeholder="e.g. 205/55 R16">
+                        </div>
+                        <div class="form-group">
+                            <label for="customerName">Customer Name</label>
+                            <input type="text" id="customerName" placeholder="e.g. John Doe" required>
+                        </div>
+                    </div>
+
+                    <!-- Price will be shown here -->
+                    <div class="price-display">
+                        <strong>Service Fee:</strong>
+                        <span id="serviceFee">UGX 0</span>
+                    </div>
+                    <input type="hidden" name="amount" id="amountField">
+
+                    <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 20px;">
+                        Complete Service & Save Record
+                    </button>
+                </form>
+            </div>
+
+            <!-- Recent Services -->
+            <div class="recent-card">
+                <h2>Recent Tyre Services</h2>
+                <div id="recentServices" class="services-list">
+                    <!-- JavaScript will add rows here -->
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- JavaScript -->
+    <script src="../public/js/tyre-clinic.js"></script>
+</body>
+</html>

@@ -1,0 +1,123 @@
+extends layout
+block content
+  .container-fluid.py-4
+    h1.mb-2 Tyre Clinic Service
+    p.subtitle.mb-4 Record tyre services and calculate fees instantly.
+    // Service Form
+    .card.mb-4
+      .card-body
+        form(action='/tyre-service' method='POST' id='tyreServiceForm')
+          .row.g-3.mb-3
+            .col-md-6
+              label.form-label(for='vehiclePlate') Vehicle Number Plate
+              input.form-control#vehiclePlate(type='text' placeholder='e.g. UBA123' name='plateNumber' required)
+              small.text-muted Enter the vehicle registration plate
+            .col-md-6
+              label.form-label(for='serviceType') Service Type
+              select.form-select#serviceType(name='serviceType' required onchange='updatePrice()')
+                option(value='') Select Service
+                option(value='Pressure Check') Pressure Check (UGX 500)
+                option(value='Puncture Fix') Puncture Fixing (UGX 5,000)
+                option(value='Valve Replacement') Valve Replacement (UGX 5,000)
+              small.text-muted Choose the service to be performed
+          .row.g-3.mb-3
+            .col-md-6
+              label.form-label(for='tyreSize') Tyre Size 
+              select.form-select#serviceType(name='tyreSize' required onchange='updatePrice()')
+                option(value='') Select Size
+                option(value='15 inch') 15 inch
+                option(value='17 inch') 17 inch
+                option(value='18 inch') 18 inch
+            .col-md-6
+              label.form-label(for='customerName') Customer Name
+              input.form-control#customerName(type='text' placeholder='e.g. John Doe' name='customerName' required)
+              small.text-muted Full name of the vehicle owner
+          .card.bg-gradient.text-white.p-3.mb-3(style='background: linear-gradient(135deg, #00327d, #002255);')
+            .d-flex.justify-content-between.align-items-center
+              div
+                small ESTIMATED SERVICE FEE
+                h3.mb-0#serviceFee UGX 0
+              .badge.bg-light.text-primary Auto-calculated
+            input#amountField(type='hidden' name='amount')
+          .d-grid.gap-2
+            button.btn.btn-primary.btn-lg(type='submit')
+              strong ✓ Complete Service & Save Record
+    // Recent Services Table
+    .card
+      .card-header.bg-light
+        h5.mb-0 Recent Tyre Services
+      .table-responsive
+        table.table.mb-0
+          thead
+            tr
+              th Vehicle Plate
+              th Service Type
+              th Amount
+              th Date
+              th Status
+          tbody#recentServices
+            if recentServices && recentServices.length > 0
+              each service in recentServices
+                tr
+                  td #{service.plateNumber}
+                  td #{service.serviceType}
+                  td UGX #{service.amount.toLocaleString()}
+                  td #{new Date(service.serviceDate).toLocaleDateString()}
+                  td
+                    span.badge.bg-success Recorded
+            else
+              tr
+                td(colspan='5').text-center.text-muted No services recorded yet
+  script.
+    function updatePrice() {
+      const serviceType = document.getElementById('serviceType').value;
+      const prices = {
+        'Pressure Check': 500,
+        'Puncture Fix': 5000,
+        'Valve Replacement': 5000
+      };
+      const price = prices[serviceType] || 0;
+      document.getElementById('serviceFee').textContent = 'UGX ' + price.toLocaleString();
+      document.getElementById('amountField').value = price;
+    }
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('tyreServiceForm');
+      
+      form.addEventListener('submit', (e) => {
+        const plateNumber = document.getElementById('vehiclePlate')?.value?.trim().toUpperCase() || '';
+        const serviceType = document.getElementById('serviceType')?.value || '';
+        const customerName = document.getElementById('customerName')?.value?.trim() || '';
+        const amount = document.getElementById('amountField')?.value || '0';
+        
+        if (!plateNumber || !serviceType || !customerName || amount === '0') {
+          e.preventDefault();
+          const missing = [];
+          if (!plateNumber) missing.push('Vehicle Plate');
+          if (!serviceType) missing.push('Service Type');
+          if (!customerName) missing.push('Customer Name');
+          if (amount === '0') missing.push('Valid Service Selection');
+          
+          alert('Please fill in all required fields:\n• ' + missing.join('\n• '));
+          return false;
+        }
+        
+        // Validate plate number format - must start with U
+        const plateRegex = /^U[A-Z0-9]{1,5}$/;
+        if (!plateRegex.test(plateNumber)) {
+          e.preventDefault();
+          alert('Invalid plate number.\n• Must start with "U"\n• Must be alphanumeric (e.g. UBA123)');
+          return false;
+        }
+        
+        // Validate customer name
+        if (!/^[A-Z][a-zA-Z\s]*$/.test(customerName)) {
+          e.preventDefault();
+          alert('Invalid customer name.\n• Must start with a capital letter\n• Must not contain numbers');
+          return false;
+        }
+        
+        console.log('✓ Tyre service form validated:', { plateNumber, serviceType, customerName, amount });
+      });
+    });
+  script(src='/js/tyre-clinic.js')

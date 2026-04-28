@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SignOut Vehicle </title>
+    
+    <link rel="stylesheet" href="../public/css/style.css">
+    <!-- <link rel="stylesheet" href="./public/css/sign-out.css"> -->
+</head>
+<body>
+
+    <!-- Sidebar -->
+    <aside class="sidebar">
+        <h1 style="color: #00327d; text-align: center; margin-bottom: 40px;">ParkEase</h1>
+        
+        <a href="attendant-dashboard.html" class="nav-link"> Dashboard</a>
+        <a href="vehicle-registration.html" class="nav-link"> Register Vehicle</a>
+        <a href="tyre-clinic.html" class="nav-link"> Tyre Clinic</a>
+        <a href="battery-section.html" class="nav-link"> Battery</a>
+        <a href="reports.html" class="nav-link"> Reports</a>
+    </aside>
+
+    <!-- Main Content -->
+    <main style="margin-left: 280px; padding-top: 80px;">
+        <div class="container">
+
+            <h1>Sign Out Vehicle</h1>
+            <p class="subtitle">Search by Receipt Number or Number Plate to complete exit and print receipt.</p>
+
+            <!-- Search Section -->
+            <div class="search-card">
+                <form action="/sign-out" method="POST">
+                    <div class="form-group">
+                        <label for="searchInput">Receipt Number or Number Plate</label>
+                        <input type="text" id="searchInput" placeholder="e.g. PE-123456 or UBA123" required>
+                    </div>
+                    <button type="submit" class="btn btn-primary" style="margin-top: 15px; width: 100%;">
+                        Search Vehicle
+                    </button>
+                </form>
+            </div>
+
+            <!-- Vehicle Details + Sign-Out Form -->
+            <div id="vehicleDetails" class="details-card" style="display: none;">
+                <h2>Vehicle Found</h2>
+                
+                <div class="info-grid">
+                    <div><strong>Driver:</strong> <span id="displayDriver"></span></div>
+                    <div><strong>Plate:</strong> <span id="displayPlate"></span></div>
+                    <div><strong>Type:</strong> <span id="displayType"></span></div>
+                    <div><strong>Arrival:</strong> <span id="displayArrival"></span></div>
+                    <div><strong>Receipt:</strong> <span id="displayReceipt"></span></div>
+                </div>
+
+                <form id="signOutForm">
+                    <div class="form-row">
+                        <div class="form-group">
+                            <label for="receiverName">Receiver Name</label>
+                            <input type="text" id="receiverName" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="receiverPhone">Receiver Phone</label>
+                            <input type="tel" id="receiverPhone" placeholder="07XX XXX XXX">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="gender">Gender</label>
+                        <select id="gender">
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Other">Other</option>
+                        </select>
+                    </div>
+
+                    <div class="total-box">
+                        <strong>Total Payable:</strong>
+                        <span id="totalPayable" style="font-size: 28px; color: #00327d;">UGX 8,000</span>
+                    </div>
+
+                    <div style="display: flex; gap: 15px; margin-top: 25px;">
+                        <button type="submit" class="btn btn-primary" style="flex: 1;">
+                            Confirm Sign-Out
+                        </button>
+                        <button type="button" id="printReceiptBtn" class="btn" 
+                                style="flex: 1; background:#4caf50; color:white; display:none;">
+                            Print Receipt
+                        </button>
+                    </div>
+                </form>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- <script src="./public/js/protect.js"></script> -->
+    <script src="../public/js/sign-out.js"></script>
+</body>
+</html>

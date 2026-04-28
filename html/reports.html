@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daily Reports </title>
+    
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="../public/css/style.css">
+    <!-- <link rel="stylesheet" href="./public/css/reports.css"> -->
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+        <h1 style="color: #00327d; text-align: center; margin-bottom: 40px;">ParkEase</h1>
+        
+        <a href="attendant-dashboard.html" class="nav-link"> Dashboard</a>
+        <a href="vehicle-registration.html" class="nav-link"> Register Vehicle</a>
+        <a href="sign-out.html" class="nav-link"> Sign Out</a>
+        <a href="tyre-clinic.html" class="nav-link"> Tyre Clinic</a>
+        <a href="battery-section.html" class="nav-link"> Battery</a>
+    </aside>
+
+    <!-- Main Content -->
+    <main style="margin-left: 280px; padding-top: 80px;">
+        <div class="container">
+
+            <h1>Daily Revenue Reports</h1>
+            <p class="subtitle">Overview of all sections for today</p>
+
+            <!-- Summary Cards -->
+            <div class="summary-grid">
+                <div class="summary-card">
+                    <h3>Parking Revenue</h3>
+                    <p id="parkingRevenue" class="amount">UGX 0</p>
+                </div>
+                <div class="summary-card">
+                    <h3>Tyre Clinic Revenue</h3>
+                    <p id="tyreRevenue" class="amount">UGX 0</p>
+                </div>
+                <div class="summary-card">
+                    <h3>Battery Revenue</h3>
+                    <p id="batteryRevenue" class="amount">UGX 0</p>
+                </div>
+                <div class="summary-card total">
+                    <h3>Total Revenue</h3>
+                    <p id="totalRevenue" class="amount">UGX 0</p>
+                </div>
+            </div>
+
+            <!-- Signed-Out Vehicles Table -->
+            <div class="report-card">
+                <h2>Signed-Out Vehicles Today</h2>
+                <div id="signedOutTable" class="table-container">
+                    <!-- JavaScript will fill this table -->
+                </div>
+            </div>
+
+            <!-- Recent Tyre & Battery Services -->
+            <div class="two-column">
+                <div class="report-card">
+                    <h2>Recent Tyre Services</h2>
+                    <div id="tyreList" class="list-container"></div>
+                </div>
+                <div class="report-card">
+                    <h2>Recent Battery Transactions</h2>
+                    <div id="batteryList" class="list-container"></div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- JavaScript -->
+    <script src="../public/js/reports.js"></script>
+</body>
+</html>

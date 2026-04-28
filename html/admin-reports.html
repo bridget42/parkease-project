@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Reports </title>
+    
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="../public/css/style.css">
+    <!-- <link rel="stylesheet" href="./public/css/admin-reports.css"> -->
+</head>
+<body>
+
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+        <h1 style="color: #00327d; text-align: center; margin-bottom: 40px;">ParkEase</h1>
+        
+        <a href="attendant-dashboard.html" class="nav-link"> Dashboard</a>
+        <a href="vehicle-registration.html" class="nav-link"> Register Vehicle</a>
+        <a href="tyre-clinic.html" class="nav-link"> Tyre Clinic</a>
+        <a href="battery-section.html" class="nav-link"> Battery</a>
+        <a href="reports.html" class="nav-link"> Reports</a>
+    </aside>
+
+    <!-- Main Content -->
+    <main style="margin-left: 280px; padding-top: 80px;">
+        <div class="container">
+
+            <h1>System Admin Reports</h1>
+            <p class="subtitle">Overall system performance and audit log</p>
+
+            <!-- KPI Summary Cards -->
+            <div class="summary-grid">
+                <div class="summary-card total">
+                    <h3>Total Revenue (All Sections)</h3>
+                    <p id="grandTotal" class="amount">UGX 0</p>
+                </div>
+                <div class="summary-card">
+                    <h3>Total Vehicles Registered</h3>
+                    <p id="totalRegistered" class="amount">0</p>
+                </div>
+                <div class="summary-card">
+                    <h3>Total Signed Out</h3>
+                    <p id="totalSignedOut" class="amount">0</p>
+                </div>
+                <div class="summary-card">
+                    <h3>Services Today</h3>
+                    <p id="totalServices" class="amount">0</p>
+                </div>
+            </div>
+
+            <!-- Audit Log Table -->
+            <div class="report-card">
+                <h2>System Audit Log</h2>
+                <div id="auditLog" class="table-container">
+                    <!-- JavaScript will fill this table -->
+                </div>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="two-column">
+                <div class="report-card">
+                    <h2>Parked Vehicles Now</h2>
+                    <div id="currentParked" class="big-number">0</div>
+                </div>
+                <div class="report-card">
+                    <h2>Most Popular Service</h2>
+                    <div id="popularService" class="big-number">-</div>
+                </div>
+            </div>
+
+        </div>
+    </main>
+
+    <!-- JavaScript -->
+    <script src="../public/js/admin-reports.js"></script>
+</body>
+</html>

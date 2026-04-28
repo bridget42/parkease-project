@@ -1,0 +1,73 @@
+extends layout
+block content
+  .container-fluid.py-4
+    h1.mb-2 Register Vehicle
+    p.subtitle.mb-4 Fill the form below to register a vehicle in the system.
+    .card
+      .card-header.bg-light
+        h5.mb-0 Vehicle Registration Form
+      .card-body
+        form(action='/register-vehicle' method='POST' id='vehicleForm')
+          // Row 1 - Personal Info
+          .mb-4
+            .row.g-3
+              .col-md-6
+                label.form-label Driver Name
+                input.form-control#driverName(type='text' placeholder='e.g. Mukasa Ivan' name='driverName')
+              .col-md-6
+                label.form-label Phone Number
+                input.form-control#phoneNumber(type='tel' placeholder='07XX XXX XXX' name='phoneNumber' )
+          // Row 2 - Vehicle Type & Plate
+          .mb-4
+            .row.g-3
+              .col-md-6
+                label.form-label Vehicle Type
+                select.form-select#vehicleType(name='vehicleType')
+                  option(value='') Select Type
+                  option(value='Truck') Truck
+                  option(value='Personal Car') Personal Car
+                  option(value='Taxi') Taxi
+                  option(value='Coaster') Coaster
+                  option(value='Boda-boda') Boda-boda
+              .col-md-6
+                label.form-label Registration Number Plate
+                input.form-control#plateNumber(type='text' placeholder='e.g. UBA123' name='plateNumber' required style='text-transform: uppercase;')
+          // Row 3 - Vehicle Description
+          .mb-4
+            .row.g-3
+              .col-md-6
+                label.form-label Vehicle Model & Color
+                input.form-control#modelColor(type='text' placeholder='e.g. Toyota Corolla, Silver' name='modelColor')
+              .col-md-6
+                label.form-label NIN Number (Boda-boda only)
+                input.form-control#ninNumber(type='text' placeholder='CF1234567890...' name='ninNumber')
+          // Parking Slot & Time
+          .mb-4
+            .row.g-3
+              .col-md-6
+                label.form-label Parking Slot
+                input.form-control#parkingSlot(type='text' placeholder='e.g. A1' name='parkingSlot' required)
+              .col-md-6
+                label.form-label Arrival Time (Auto-filled)
+                input.form-control#entryTime(type='text' placeholder='Auto-filled' name='entryTime' readonly style='background: #f8fafc;')
+          
+          // Action Buttons
+          .d-flex.gap-3.justify-content-end
+            button.btn.btn-outline-secondary.px-4(type='button' onclick='window.history.back()')
+              strong ✕ Cancel
+            button.btn.btn-primary.px-4(type='submit')
+              strong ✓ Register Vehicle & Print Receipt
+  script.
+    document.addEventListener('DOMContentLoaded', () => {
+      const entryTimeInput = document.getElementById('entryTime');
+      if (entryTimeInput && !entryTimeInput.value) {
+        const now = new Date();
+        const year = now.getFullYear();
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const day = String(now.getDate()).padStart(2, '0');
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+        entryTimeInput.value = `${year}-${month}-${day}T${hours}:${minutes}`;
+      }
+    });
+  script(src='/js/vehicle-registration.js')

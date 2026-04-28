@@ -1,0 +1,85 @@
+extends layout
+block content
+  .container-fluid.py-4
+    h1.mb-2 Sign Out Vehicle
+    p.subtitle.mb-4 Search by Receipt Number or Number Plate to complete exit and print receipt.
+    // Search Section
+    .card.mb-4
+      .card-body
+        form#searchForm(action='/sign-out' method='POST')
+          .row.g-3.align-items-end
+            .col-md-8
+              label.form-label(for='searchInput') Receipt Number or Number Plate
+              .input-group
+                input.form-control.form-control-lg#searchInput(type='text' placeholder='e.g. UBA123 or receipt number' name='searchInput' autocomplete='off')
+                button.btn.btn-primary#searchBtn(type='button' onclick='searchVehicle()')
+                  strong Search
+            .col-md-4
+              .d-grid
+                small.text-muted
+                 
+                  | Use partial plate (e.g. UBA) for faster search
+    // Search Results Status
+    #searchStatus(style='display: none;')
+      .alert.alert-info Searching...
+    // Vehicle Details Card
+    #vehicleDetails.card.mb-4(style='display: none;')
+      .card-header.bg-light
+        h5.mb-0 ✓ Vehicle Found
+      .card-body
+        .row.g-3.mb-4
+          .col-md-6
+            small.text-muted DRIVER
+            p.fw-bold#displayDriver -
+          .col-md-6
+            small.text-muted REGISTRATION
+            p.fw-bold#displayPlate -
+          .col-md-6
+            small.text-muted VEHICLE TYPE
+            p.fw-bold#displayType -
+          .col-md-6
+            small.text-muted ARRIVAL TIME
+            p.fw-bold#displayArrival -
+          .col-md-6
+            small.text-muted DURATION
+            p.fw-bold#displayDuration -
+          .col-md-6
+            small.text-muted RECEIPT
+            p.fw-bold#displayReceipt -
+        hr
+        form#signOutForm(action='/sign-out' method='POST')
+          .row.g-3.mb-3
+            .col-md-6
+              label.form-label(for='receiverName') Receiver Name
+              input.form-control#receiverName(type='text' name='receiverName' placeholder='Full name' required)
+            .col-md-6
+              label.form-label(for='receiverPhone') Receiver Phone
+              input.form-control#receiverPhone(type='tel' placeholder='07XX XXX XXX' name='receiverPhone' required)
+          .row.g-3.mb-3
+            .col-md-6
+              label.form-label(for='gender') Gender
+              select.form-select#gender(name='gender' required)
+                option(value='') Select Gender
+                option(value='Male') Male
+                option(value='Female') Female
+                option(value='Other') Other
+            .col-md-6
+              label.form-label(for='ninNumber') NIN Number (Optional)
+              input.form-control#ninNumber(type='text' name='ninNumber' placeholder='CF1234567890...')
+          .card.bg-light.p-3.mb-3
+            .row.align-items-center
+              .col
+                small.text-muted TOTAL PAYABLE
+                h2.mb-0.text-primary#totalPayable UGX 8,000
+              .col-auto
+                .badge.bg-success.p-2 Pending
+          .d-flex.gap-3.mt-4
+            button.btn.btn-primary.flex-fill.py-2(type='submit')
+              strong ✓ Confirm Sign-Out
+            button#printReceiptBtn.btn.btn-success.flex-fill.py-2(type='button' style='display:none;' onclick='printReceipt()')
+              strong  Print Receipt
+    // No Result
+    #noResultMessage.alert.alert-warning(style='display: none;')
+      strong  Vehicle Not Found
+      p.mb-0 Please check the receipt number or vehicle plate and try again.
+  script(src='/js/sign-out.js')

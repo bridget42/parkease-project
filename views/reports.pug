@@ -1,0 +1,111 @@
+extends layout
+block content
+  .container-fluid.py-4
+    .d-flex.justify-content-between.align-items-center.mb-4
+      div
+        h1.mb-2 Daily Revenue Reports
+        p.subtitle Overview of all sections for today
+      button.btn.btn-outline-primary#exportBtn(onclick='exportReport()')
+        strong Export Report
+    // Summary Cards
+    .row.g-4.mb-4
+      .col-md-3
+          .card-body
+            h6 Parking Revenue
+            p UGX #{parkingRevenue.toLocaleString()}
+      .col-md-3
+          .card-body
+            h6 Tyre Clinic Revenue
+            p UGX #{tyreRevenue.toLocaleString()}
+      .col-md-3
+          .card-body
+            h6 Battery Revenue
+            p UGX #{batteryRevenue.toLocaleString()}
+      .col-md-3
+        .card-body
+          .card-body
+            h6.text-uppercase.mb-3 Total Revenue
+            p UGX #{totalRevenue.toLocaleString()}
+    // Signed-Out Vehicles Table
+    .card.mb-4
+      .card-header.bg-light.d-flex.justify-content-between.align-items-center
+        h5.mb-0 Signed-Out Vehicles Today
+        small#signedOutCount.badge.bg-primary(style='font-size: 0.9rem;') #{signedOutVehicles.length} vehicles
+      .table-responsive
+        table.table.mb-0#signedOutTable
+          thead
+            tr
+              th Vehicle Plate
+              th Driver
+              th Entry Time
+              th Exit Time
+              th Duration
+              th Amount Paid
+              th Receiver
+          tbody
+            if signedOutVehicles && signedOutVehicles.length > 0
+              each vehicle in signedOutVehicles
+                tr
+                  td #{vehicle.plateNumber}
+                  td #{vehicle.driverName}
+                  td #{new Date(vehicle.entryTime).toLocaleTimeString()}
+                  td #{vehicle.exitTime ? new Date(vehicle.exitTime).toLocaleTimeString() : '-'}
+                  td -
+                  td UGX #{vehicle.parkingFee.toLocaleString()}
+                  td #{vehicle.receiverName || '-'}
+            else
+              tr
+                td(colspan='7').text-center.text-muted No sign-outs yet
+    // Recent Services Row
+    .row.g-4
+      .col-md-6
+        .card
+          .card-header.bg-light
+            h5.mb-0 Recent Tyre Services
+          .table-responsive
+            table.table.mb-0#tyreList
+              thead
+                tr
+                  th Vehicle
+                  th Service Type
+                  th Amount
+                  th Time
+              tbody
+                if tyreServices && tyreServices.length > 0
+                  each service in tyreServices
+                    tr
+                      td #{service.plateNumber}
+                      td #{service.serviceType}
+                      td UGX #{service.amount.toLocaleString()}
+                      td #{new Date(service.serviceDate).toLocaleTimeString()}
+                else
+                  tr
+                    td(colspan='4').text-center.text-muted No tyre services recorded
+      .col-md-6
+        .card
+          .card-header.bg-light
+            h5.mb-0 Recent Battery Transactions
+          .table-responsive
+            table.table.mb-0#batteryList
+              thead
+                tr
+                  th Customer
+                  th Battery Model
+                  th Type
+                  th Amount
+              tbody
+                if batteryServices && batteryServices.length > 0
+                  each service in batteryServices
+                    tr
+                      td #{service.customerName}
+                      td #{service.batteryModel}
+                      td #{service.serviceType}
+                      td UGX #{service.amount.toLocaleString()}
+                else
+                  tr
+                    td(colspan='4').text-center.text-muted No battery transactions recorded
+  script.
+    function exportReport() {
+      alert(' Export functionality (CSV/PDF) will be available soon!');
+    }
+  script(src='/js/reports.js')

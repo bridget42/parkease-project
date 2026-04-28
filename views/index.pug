@@ -1,0 +1,41 @@
+extends layout
+block content
+  .text-center.mb-4
+    .parking-icon.mb-3
+      //- 🅿️
+    h1.fw-bold.text-primary.mb-2 ParkEase
+    p.text-muted.mb-0 Parking & Vehicle Services Management
+  form(action="/login" method="POST")
+    .mb-3
+      label.form-label.fw-semibold(for='username') Username
+      input#username.form-control.form-control-lg.rounded-2(type='text' placeholder='Enter your username' name='username' )
+    .mb-3
+      label.form-label.fw-semibold(for='password') Password
+      input#password.form-control.form-control-lg.rounded-2(type='password' placeholder='Enter your password' name='password' )
+    .mb-2
+      .form-check
+        input.form-check-input(type='checkbox' id='rememberMe' name='rememberMe')
+        label.form-check-label(for='rememberMe')
+          | Remember me
+    button.btn.btn-primary.btn-lg.w-100.rounded-2.py-3.fw-semibold.mt-3(type='submit')
+      | Login
+    .text-center.mt-3
+      small.text-muted
+        | Don't have an account?
+        a.ms-1.text-primary.fw-semibold(href='/signup') Sign Up Here
+  hr.my-4
+  footer.text-center
+    p.mb-0 &copy;  2026 Tumuhaise Bridget. All Rights Reserved
+  script.
+    document.querySelector('form').addEventListener('submit', (e) => {
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+      if (!username || !password) {
+        e.preventDefault();
+        alert(' Please enter both username and password');
+      }
+    });
+  // <script src="/js/index.js"></script>
+  
+
+

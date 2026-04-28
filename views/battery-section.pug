@@ -1,0 +1,133 @@
+extends layout
+block content
+  main.main-content
+    .container-fluid
+      h1.mb-2 Battery Section
+      p.subtitle.mb-4 Record battery hire, sale or charging services instantly.
+      // New Transaction Form
+      .card.mb-4
+        .card-header.bg-light
+          h5.mb-0 New Battery Transaction
+        .card-body
+          form(action='/battery-service' method='POST' id='batteryServiceForm')
+            .row.g-3.mb-3
+              .col-md-6
+                label.form-label(for='vehiclePlate') Vehicle Number Plate
+                input.form-control#vehiclePlate(type='text' placeholder='e.g. UBA123' name='plateNumber' required)
+                small.text-muted Enter the vehicle registration plate
+              .col-md-6
+                label.form-label(for='customerName') Customer Name
+                input.form-control#customerName(type='text' placeholder='e.g. Sarah Nakato' name='customerName' required)
+                small.text-muted Full name of customer
+            .row.g-3.mb-3
+              .col-md-6
+                label.form-label(for='phoneNumber') Phone Number
+                input.form-control#phoneNumber(type='tel' placeholder='07XX XXX XXX' name='phoneNumber')
+                small.text-muted Contact for verification
+              .col-md-6
+                label.form-label(for='batteryModel') Battery Model
+                select.form-select#batteryModel(name='batteryModel' required onchange='updateBatteryPrice()')
+                  option(value='') Select Model
+                  option(value='PowerMax 500') PowerMax 500 - 3,500 UGX
+                  option(value='VoltMaster X') VoltMaster X - 4,200 UGX
+                  option(value='UltraCell 2.0') UltraCell 2.0 - 5,000 UGX
+                small.text-muted Available battery models
+            .row.g-3.mb-3
+              .col-md-6
+                label.form-label(for='serviceType') Service Type
+                select.form-select#serviceType(name='serviceType' required)
+                  option(value='') Select Type
+                  option(value='Hire') Hire
+                  option(value='Sale') Sale
+                  option(value='Charging') Charging
+                small.text-muted Type of battery service
+              .col-md-6
+                label.form-label(for='notes') Notes (Optional)
+                input.form-control#notes(type='text' placeholder='e.g. Delivery' name='notes')
+                small.text-muted Any additional information
+            .card.bg-gradient.text-white.p-3.mb-3(style='background: linear-gradient(135deg, #00327d, #002255);')
+              .d-flex.justify-content-between.align-items-center
+                div
+                  small ESTIMATED SERVICE FEE
+                  h3.mb-0#totalAmount UGX 0
+                .badge.bg-light.text-primary Auto-calculated
+              input#amountField(type='hidden' name='amount')
+            .d-grid
+              button.btn.btn-primary.btn-lg(type='submit')
+                strong ✓ Record Battery Transaction
+      // Recent Transactions Table
+      .card
+        .card-header.bg-light
+          .d-flex.justify-content-between.align-items-center
+            h5.mb-0 Recent Battery Transactions
+            span.badge.bg-secondary(style='font-size: 0.9rem;') Live
+        .table-responsive
+          table.table.mb-0#recentBattery
+            thead
+              tr
+                th Customer
+                th Battery Model
+                th Service Type
+                th Amount
+                th Date
+                th Status
+            tbody
+              if recentServices && recentServices.length > 0
+                each service in recentServices
+                  tr
+                    td #{service.customerName}
+                    td #{service.batteryModel}
+                    td #{service.serviceType}
+                    td UGX #{service.amount.toLocaleString()}
+                    td #{new Date(service.serviceDate).toLocaleDateString()}
+                    td
+                      span.badge.bg-success Recorded
+              else
+                tr
+                  td(colspan='6').text-center.text-muted No battery transactions recorded yet
+  script.
+    function updateBatteryPrice() {
+      const batteryModel = document.getElementById('batteryModel').value;
+      const prices = {
+        'PowerMax 500': 3500,
+        'VoltMaster X': 4200,
+        'UltraCell 2.0': 5000
+      };
+      const price = prices[batteryModel] || 0;
+      document.getElementById('totalAmount').textContent = 'UGX ' + price.toLocaleString();
+      document.getElementById('amountField').value = price;
+    }
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      const form = document.getElementById('batteryServiceForm');
+      
+      form.addEventListener('submit', (e) => {
+        const plateNumber = document.getElementById('vehiclePlate')?.value?.trim().toUpperCase() || '';
+        const customerName = document.getElementById('customerName')?.value?.trim() || '';
+        const batteryModel = document.getElementById('batteryModel')?.value || '';
+        const serviceType = document.getElementById('serviceType')?.value || '';
+        const amount = document.getElementById('amountField')?.value || '0';
+        
+        if (!plateNumber || !customerName || !batteryModel || !serviceType || amount === '0') {
+          e.preventDefault();
+          const missing = [];
+          if (!plateNumber) missing.push('Vehicle Plate');
+          if (!customerName) missing.push('Customer Name');
+          if (!batteryModel) missing.push('Battery Model');
+          if (!serviceType) missing.push('Service Type');
+          if (amount === '0') missing.push('Valid Battery Model Selection');
+          
+          alert('Please fill in all required fields:\n• ' + missing.join('\n• '));
+          return false;
+        }
+        
+        // Validate plate number format
+        if (!/^[A-Z0-9]{3,6}$/.test(plateNumber)) {
+          e.preventDefault();
+          alert(' Invalid plate number. Should be 3-6 alphanumeric characters (e.g. UBA123)');
+          return false;
+        }
+        
+        console.log('✓ Battery service form validated:', { plateNumber, customerName, batteryModel, serviceType, amount });
+      });
+    });

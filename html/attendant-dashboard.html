@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Attendant Dashboard</title>
+
+    <!-- Global CSS -->
+    <link rel="stylesheet" href="../public/css/style.css" />
+    <!-- <link rel="stylesheet" href="./public/css/attendant-dashboard.css"> -->
+  </head>
+  <body>
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <h1 class="text-white text-center mb-4">ParkEase</h1>
+
+      <a href="vehicle-registration.html" class="nav-link"> Register Vehicle</a>
+      <a href="sign-out.html" class="nav-link"> Sign Out Vehicle</a>
+      <a href="tyre-clinic.html" class="nav-link"> Tyre Clinic</a>
+      <a href="battery-section.html" class="nav-link"> Battery Section</a>
+      <a href="reports.html" class="nav-link"> Reports</a>
+      <a href="index.html" class="nav-link mt-4">Logout</a>
+    </aside>
+
+    <!-- Header -->
+    <header class="header">
+      <!-- <h2>Welcome, Parking Attendant</h2> -->
+      <p>Today: <strong id="current-date"></strong></p>
+    </header>
+
+    <main style="margin-left: 280px; padding-top: 90px">
+      <div class="container">
+        <h1 style="margin-bottom: 30px">Attendant Dashboard</h1>
+
+        <!-- KPI Cards -->
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="card">
+            <h3>Parked Vehicles</h3>
+            <p
+              style="font-size: 48px; font-weight: bold; color: #00327d"
+              id="parked-count"
+            >
+              142
+            </p>
+          </div>
+          <div class="card">
+            <h3>Available Spaces</h3>
+            <p style="font-size: 48px; font-weight: bold">58</p>
+          </div>
+          <div class="card">
+            <h3>Today's Revenue</h3>
+            <p style="font-size: 32px; font-weight: bold; color: green">
+              UGX 1,284,000
+            </p>
+          </div>
+        </div>
+
+        <!-- Quick Actions -->
+        <div class="card" style="margin-top: 30px">
+          <h2>Quick Actions</h2>
+          <a
+            href="vehicle-registration.html"
+            class="btn btn-primary"
+            style="display: inline-block; margin: 10px 5px"
+          >
+            Register New Vehicle
+          </a>
+          <a
+            href="sign-out.html"
+            class="btn"
+            style="background: #f0f0f0; display: inline-block; margin: 10px 5px"
+          >
+            Sign Out Vehicle</a
+          >
+          <a href="reports.html" class="btn btn-outline-primary rounded-3 px-4"
+            >View Reports</a
+          >
+        </div>
+      </div>
+    </main>
+
+    <script src="../public/js/attendant-dashboard.js"></script>
+  </body>
+</html>
