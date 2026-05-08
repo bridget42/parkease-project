@@ -2,6 +2,7 @@ const express = require("express");
 const path = require("path");
 const session = require("express-session");
 const passport = require("passport");
+const LocalStrategy = require("passport-local").Strategy;
 const User = require("./models/User");
 const methodOverride = require("method-override");
 const dotenv = require("dotenv");
@@ -32,12 +33,16 @@ app.use(session({
   saveUninitialized: false,
   cookie: {secure: false}
 }));
+app.use((req, res, next) => {
+  res.locals.user = req.session.user || null;
+  next();
+});
 
 app.use(passport.initialize());
 app.use(passport.session());
 
 // Passport config
-passport.use(User.createStrategy());
+passport.use(new LocalStrategy(User.authenticate()));
 passport.serializeUser(User.serializeUser());
 passport.deserializeUser(User.deserializeUser());
 
@@ -45,7 +50,6 @@ passport.deserializeUser(User.deserializeUser());
 app.use("/public", express.static(path.join(__dirname, "public")));
 app.use("/html", express.static(path.join(__dirname, "html")));
 app.use(express.static(path.join(__dirname, "public")));
-
 // routes
 app.use("/", authRoutes);
 app.use("/", vehicleRoutes);

@@ -11,9 +11,9 @@ router.get("/tyre-service", isStaff, async (req, res) => {
     const recentServices = await Service.find({ category: "Tyre" })
       .sort({ serviceDate: -1 })
       .limit(10);
-    res.render("tyre-service", { title: "Tyre Clinic", recentServices });
+    res.render("tyre-clinic", { title: "Tyre Clinic", recentServices });
   } catch (error) {
-    res.render("tyre-service", { title: "Tyre Clinic", recentServices: [] });
+    res.render("tyre-clinic", { title: "Tyre Clinic", recentServices: [] });
   }
 });
 

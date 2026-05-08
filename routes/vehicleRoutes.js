@@ -52,7 +52,6 @@ router.get("/dashboard", isStaff, async (req, res) => {
   try {
     const vehicles = await Vehicle.find().sort({ createdAt: -1 });
     const payments = await Payment.find().sort({ paymentDate: -1 });
-    const user = await User.find()
     
     const parkedCount = vehicles.filter(v => v.status === "parked").length;
     const signedOutCount = vehicles.filter(v => v.status === "signed-out").length;
@@ -75,7 +74,7 @@ router.get("/dashboard", isStaff, async (req, res) => {
       totalVehicles: vehicles.length,
       recentVehicles,
       vehicles: vehicles.filter(v => v.status === "parked"),
-      user 
+      user: req.session.user
     });
 
   } catch (error) {

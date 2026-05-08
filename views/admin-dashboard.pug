@@ -7,72 +7,44 @@ block content
         strong#current-date(style='color: #00327d;')
       span.badge.bg-danger(style='font-size: 0.9rem;') Admin: #{user.username}
   .row.mb-4
-    .col-md-3
-      .card.stat-card.text-center
+    .col-md-4
+      .card.stat-card
         .card-body
-          h6.text-muted.text-uppercase.mb-3 Total Vehicles
+          h6 Total Vehicles
           p #{parkedCount}
-          small.text-muted In system
-    .col-md-3
-      .card.stat-card.text-center
+    .col-md-4
+      .card.stat-card
         .card-body
-          h6.text-muted.text-uppercase.mb-3 Parked Now
+          h6 Parked Now
           p #{signedOutCount}
-          small.text-muted Currently parked
-    .col-md-3
-      .card.stat-card.text-center
+    .col-md-4
+      .card.stat-card
         .card-body
-          h6.text-muted.text-uppercase.mb-3 Today's Revenue
+          h6 Today's Revenue
           p UGX #{todayRevenue.toLocaleString()}
-          small.text-muted Revenue today
-    .col-md-3
-      .card.stat-card.text-center
+    .col-md-4
+      .card.stat-card
         .card-body
-          h6.text-muted.text-uppercase.mb-3 Total Users
+          h6 Total Users
           p #{totalVehicles}
-          small.text-muted Staff accounts
   // Admin Quick Actions
   .card.mb-4
     .card-body
       h2.card-title.mb-4 Admin Controls
       .row.g-3
         .col-md-4
-          a.btn.btn-primary.w-100.py-3(href='/register-vehicle')
-            strong Register New Vehicle
-            br
-            small.text-white-50 Add vehicles to parking
-        .col-md-4
-          a.btn.btn-outline-primary.w-100.py-3(href='/sign-out')
-            strong Sign Out Vehicle
-            br
-            small Complete exit and payment
-        .col-md-4
-          a.btn.btn-outline-secondary.w-100.py-3(href='/ tyre-service')
-            strong Tyre Services
-            br
-            small Record maintenance services
-        .col-md-4
-          a.btn.btn-outline-info.w-100.py-3(href='/battery-service')
-            strong Battery Services
-            br
-            small Battery maintenance
-        .col-md-4
           a.btn.btn-success.w-100.py-3(href='/reports')
             strong View Reports
             br
-            small Financial reports
         .col-md-4
           a.btn.btn-danger.w-100.py-3(href='/admin-reports')
             strong Admin Reports
             br
-            small System overview
         .col-md-4
           a.btn.btn-warning.w-100.py-3(href='/signup')
             strong Add Staff
             br
-            small Create new user accounts
         .col-md-4
           a.btn.btn-dark.w-100.py-3(href='/logout')
             strong Logout
             br
-            small Sign out of system

@@ -56,14 +56,12 @@ block content
         .card.text-center
           .card-body
             h5.card-title Parked Vehicles Now
-            p.display-2.fw-bold.text-primary#currentParked #{parkedCount}
-            small.text-muted Currently occupying spaces
+            p #{parkedCount}
       .col-md-6
         .card.text-center
           .card-body
             h5.card-title Most Popular Service
-            p.display-4.fw-bold.text-success#popularService #{popularService}
-            small.text-muted Highest demand today
+            p #{popularService}
   script.
     function filterReports(period) {
       alert(' Filtering reports for: ' + period);

@@ -12,19 +12,16 @@ block content
         .card-body
           h6.text-muted.text-uppercase.mb-3 Parked Vehicles
           p #{parkedCount}
-          small.text-muted Currently parked
     .col-md-4
       .card.stat-card.text-center
         .card-body
           h6.text-muted.text-uppercase.mb-3 Signed Out Today
           p #{signedOutCount}
-          small.text-muted Total: #{totalVehicles} vehicles
     .col-md-4
       .card.stat-card.text-center
         .card-body
           h6.text-muted.text-uppercase.mb-3 Today's Revenue
           p UGX #{todayRevenue.toLocaleString()}
-          small.text-muted From #{totalVehicles} transactions
   // Manager Quick Actions
   .card.mb-4
     .card-body
@@ -34,29 +31,23 @@ block content
           a.btn.btn-primary.w-100.py-3(href='/register-vehicle')
             strong Register New Vehicle
             br
-            small.text-white-50 Add vehicles to parking
         .col-md-6
           a.btn.btn-outline-primary.w-100.py-3(href='/sign-out')
             strong Sign Out Vehicle
             br
-            small Complete exit and payment
         .col-md-6
-          a.btn.btn-outline-secondary.w-100.py-3(href='/ tyre-service')
+          a.btn.btn-outline-secondary.w-100.py-3(href='/tyre-service')
             strong Tyre Services
             br
-            small Record maintenance services
         .col-md-6
           a.btn.btn-outline-info.w-100.py-3(href='/battery-service')
             strong Battery Services
             br
-            small Battery maintenance
         .col-md-6
           a.btn.btn-success.w-100.py-3(href='/reports')
             strong View Reports
             br
-            small Financial reports
         .col-md-6
           a.btn.btn-dark.w-100.py-3(href='/logout')
             strong Logout
             br
-            small Sign out of system
